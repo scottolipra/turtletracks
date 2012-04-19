@@ -5,6 +5,34 @@ def cheaterGrid
   puts "---------------------\n"
 end
 
+def printGridGeneric
+  y = 0
+  while y <= 11
+    x = 0
+    while x <= 11
+      print '. '
+      x += 1
+    end
+    puts ''
+    y += 1
+  end
+end
+
+printGridGeneric
+
+def loadGrid
+  y = 0
+  while y <= 11
+    x = 0
+    while x <= 11
+      print '. '
+      x += 1
+    end
+    puts ''
+    y += 1
+  end
+end
+
 def printGrid
   y = 0
   while y <= 11
@@ -18,8 +46,6 @@ def printGrid
   end
 end
 
-printGrid
-
 
 
 
@@ -27,6 +53,9 @@ printGrid
 # create a 2-D array.
 rows, cols = 11,11
 grid = Array.new(rows) { Array.new(cols) }
+
+# loadGrid
+# printGrid
 
 grid[0][0] = 'a '
 grid[0][2] = 'c '
