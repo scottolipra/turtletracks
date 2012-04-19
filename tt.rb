@@ -80,7 +80,7 @@ rows, cols = 11,11
 grid = Array.new(rows) { Array.new(cols) }
 currentX = 5
 currentY = 5
-bearing = 'N'
+bearing = '0'
 
 
 ### Main Method ###
@@ -92,6 +92,12 @@ stompOnCurrentSpot(grid, currentX, currentY)
 #printGridGeneric
 printGridGenericRubyStyle
 #printGrid
+
+#instruction = readInstruction(instructionFile)
+#bearing = determineNewBearing(instruction)
+#distance = determineDistance(instruction)
+#walkTurtle(bearing, distance)
+
 
 
 
