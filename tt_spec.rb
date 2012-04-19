@@ -1,4 +1,4 @@
-require 'grid'
+require 'tt'
 
 it "prints something to the console / screen"
 do
