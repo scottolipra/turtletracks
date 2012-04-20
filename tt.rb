@@ -61,7 +61,7 @@ def printGrid
 end
 
 def stompOnCurrentSpot(x, y)
-  grid[x][y] = $cellStompedUpon
+  $grid[x][y] = $cellStompedUpon
   printGrid
 end
 
@@ -72,8 +72,8 @@ def moveNorth(currentX, currentY, num = 1)
   stompOnCurrentSpot(currentX, currentY)
 end
 
-def setCurrentSpot(grid, x, y)
-  grid[x][y] = $cellStompedUpon
+def setCurrentSpot(x, y)
+  $grid[x][y] = $cellStompedUpon
 end
 
 ### Definitions ###
@@ -91,7 +91,7 @@ bearing = '0'
 ### Main Method ###
 populateGrid
 
-#stompOnCurrentSpot(grid, currentX, currentY)
+#stompOnCurrentSpot(currentX, currentY)
 
 #printCheaterGrid
 #printGridGeneric
@@ -114,10 +114,10 @@ end
 =begin
 puts ''
 puts 'experimenting with 2D array'
-grid[0][0] = 'a '
-grid[0][2] = 'c '
+gridArray[0][0] = 'a '
+gridArray[0][2] = 'c '
 
-puts grid[0][0]
-puts grid[0][1]
-puts grid[0][2]
+puts gridArray[0][0]
+puts gridArray[0][1]
+puts gridArray[0][2]
 =end
