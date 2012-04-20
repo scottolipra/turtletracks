@@ -83,20 +83,20 @@ $cellNotStompedUpon = '. '
 $cellStompedUpon = 'X '
 rows, cols = $gridSize,$gridSize
 $grid = Array.new(rows) { Array.new(cols) }
-currentX = 30
-currentY = 30
+currentX = $gridSize / 2
+currentY = $gridSize / 2
 bearing = '0'
 
 
 ### Main Method ###
 populateGrid
 
-#stompOnCurrentSpot(currentX, currentY)
+stompOnCurrentSpot(currentX, currentY)
 
 #printCheaterGrid
 #printGridGeneric
 #printGridGenericRubyStyle
-printGrid
+#printGrid
 
 #instruction = readInstruction(instructionFile)
 #bearing = determineNewBearing(instruction)
