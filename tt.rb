@@ -1,15 +1,15 @@
 
 # just create a blank grid, for show, to get something going.
 def cheaterGrid
-  puts ". . . . . . . . . . .\n"*11
+  puts ". . . . . . . . . . .\n"*61
 end
 
 def printGridGeneric
   puts 'Generic C++Style'
   y = 0
-  while y <= 11
+  while y <= 61
     x = 0
-    while x <= 11
+    while x <= 61
       print '. '
       x += 1
     end
@@ -21,9 +21,9 @@ end
 def printGridGenericRubyStyle
   puts 'Generic RubyStyle'
   y = 0
-  11.times do |y|
+  61.times do |y|
     x = 0
-    11.times do |x|
+    61.times do |x|
       print '. '
       x += 1
     end
@@ -35,9 +35,9 @@ end
 
 def populateGridGeneric(grid)
   y = 0
-  11.times do |y|
+  61.times do |y|
     x = 0
-    11.times do |x|
+    61.times do |x|
       grid[x][y] = '. '
       x += 1
     end
@@ -47,9 +47,9 @@ end
 
 def printGrid(grid)
   y = 0
-  11.times do |y|
+  61.times do |y|
     x = 0
-    11.times do |x|
+    61.times do |x|
       print grid[x][y]
       x += 1
     end
@@ -64,7 +64,7 @@ def stompOnCurrentSpot(grid, x, y)
 end
 
 def moveNorth(grid, currentX, currentY, num = 1)
-  while (currentY <= 11)
+  while (currentY <= 61)
     currentX += 1
   end
   stompOnCurrentSpot(grid, currentX, currentY)
@@ -76,10 +76,10 @@ end
 
 ### Definitions ###
 # create a 2-D array.
-rows, cols = 11,11
+rows, cols = 61,61
 grid = Array.new(rows) { Array.new(cols) }
-currentX = 5
-currentY = 5
+currentX = 30
+currentY = 30
 bearing = '0'
 
 
@@ -87,7 +87,7 @@ bearing = '0'
 #populateGridGeneric(grid)
 #populateGrid(grid)
 
-stompOnCurrentSpot(grid, currentX, currentY)
+#stompOnCurrentSpot(grid, currentX, currentY)
 
 #printGridGeneric
 printGridGenericRubyStyle
@@ -99,7 +99,11 @@ printGridGenericRubyStyle
 #walkTurtle(bearing, distance)
 
 
+### Experimenting with file reading ###
+inFile = Array.new
+STDIN.each_line do |line|
 
+end
 
 ### Experimenting with Ruby 2-D array writes / reads. ###
 =begin
