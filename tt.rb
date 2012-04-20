@@ -1,7 +1,8 @@
 
 # just create a blank grid, for show, to get something going.
-def cheaterGrid
-  puts ". . . . . . . . . . .\n"*61
+def printCheaterGrid
+  puts "Cheater Grid"
+  puts ( (". " *61) + "\n") *61
 end
 
 def printGridGeneric
@@ -89,8 +90,9 @@ bearing = '0'
 
 #stompOnCurrentSpot(grid, currentX, currentY)
 
+printCheaterGrid
 #printGridGeneric
-printGridGenericRubyStyle
+#printGridGenericRubyStyle
 #printGrid
 
 #instruction = readInstruction(instructionFile)
