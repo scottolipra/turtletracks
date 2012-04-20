@@ -77,6 +77,15 @@ def setCurrentSpot(x, y)
   $grid[x][y] = $cellStompedUpon
 end
 
+def loadTheInput
+  inFile = Array.new
+  STDIN.each_line do |line|
+   inFile << line
+  end
+  return inFile
+end
+
+
 ### Definitions ###
 # create a 2-D array.
 $gridSize = 61
@@ -90,6 +99,7 @@ bearing = '0'
 
 
 ### Main Method ###
+instructionSet = loadTheInput
 populateGrid
 
 stompOnCurrentSpot(currentX, currentY)
@@ -99,9 +109,9 @@ stompOnCurrentSpot(currentX, currentY)
 #printGridGenericRubyStyle
 #printGrid
 
-moveNorth(currentX, currentY, 20)
+moveNorth(currentX, currentY, 5)
 printGrid
-#instruction = readInstruction(instructionFile)
+
 #bearing = determineNewBearing(instruction)
 #distance = determineDistance(instruction)
 #walkTurtle(bearing, distance)
@@ -110,10 +120,8 @@ printGrid
 
 
 ### Experimenting with file reading ###
-inFile = Array.new
-STDIN.each_line do |line|
+#puts instructionSet
 
-end
 
 ### Experimenting with Ruby 2-D array writes / reads. ###
 =begin
