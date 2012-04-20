@@ -62,14 +62,15 @@ end
 
 def stompOnCurrentSpot(x, y)
   $grid[x][y] = $cellStompedUpon
-  printGrid
 end
 
 def moveNorth(currentX, currentY, num = 1)
-  if (currentY <= $gridSize)
-    currentY -= 1
-  end
+  num.times do |num|
+    if (currentY <= $gridSize)
+      currentY -= 1
+    end
   stompOnCurrentSpot(currentX, currentY)
+  end
 end
 
 def setCurrentSpot(x, y)
@@ -98,7 +99,8 @@ stompOnCurrentSpot(currentX, currentY)
 #printGridGenericRubyStyle
 #printGrid
 
-moveNorth(currentX, currentY)
+moveNorth(currentX, currentY, 20)
+printGrid
 #instruction = readInstruction(instructionFile)
 #bearing = determineNewBearing(instruction)
 #distance = determineDistance(instruction)
