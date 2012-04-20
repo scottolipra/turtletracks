@@ -34,24 +34,25 @@ def printGridGenericRubyStyle
 end
 
 
-def populateGridGeneric(grid)
+def populateGrid
   y = 0
   $gridSize.times do |y|
     x = 0
     $gridSize.times do |x|
-      grid[x][y] = $cellNotStompedUpon
+      $grid[x][y] = $cellNotStompedUpon
       x += 1
     end
     y += 1
   end
 end
 
-def printGrid(grid)
+def printGrid
+  puts 'printGrid'
   y = 0
   $gridSize.times do |y|
     x = 0
     $gridSize.times do |x|
-      print grid[x][y]
+      print $grid[x][y]
       x += 1
     end
     puts ''
@@ -59,16 +60,16 @@ def printGrid(grid)
   end
 end
 
-def stompOnCurrentSpot(grid, x, y)
+def stompOnCurrentSpot(x, y)
   grid[x][y] = $cellStompedUpon
-  printGrid(grid)
+  printGrid
 end
 
-def moveNorth(grid, currentX, currentY, num = 1)
+def moveNorth(currentX, currentY, num = 1)
   while (currentY <= $gridSize)
     currentX += 1
   end
-  stompOnCurrentSpot(grid, currentX, currentY)
+  stompOnCurrentSpot(currentX, currentY)
 end
 
 def setCurrentSpot(grid, x, y)
@@ -81,22 +82,21 @@ $gridSize = 61
 $cellNotStompedUpon = '. '
 $cellStompedUpon = 'X '
 rows, cols = $gridSize,$gridSize
-grid = Array.new(rows) { Array.new(cols) }
+$grid = Array.new(rows) { Array.new(cols) }
 currentX = 30
 currentY = 30
 bearing = '0'
 
 
 ### Main Method ###
-#populateGridGeneric(grid)
-#populateGrid(grid)
+populateGrid
 
 #stompOnCurrentSpot(grid, currentX, currentY)
 
 #printCheaterGrid
 #printGridGeneric
-printGridGenericRubyStyle
-#printGrid
+#printGridGenericRubyStyle
+printGrid
 
 #instruction = readInstruction(instructionFile)
 #bearing = determineNewBearing(instruction)
