@@ -66,8 +66,8 @@ def stompOnCurrentSpot(x, y)
 end
 
 def moveNorth(currentX, currentY, num = 1)
-  while (currentY <= $gridSize)
-    currentX += 1
+  if (currentY <= $gridSize)
+    currentY -= 1
   end
   stompOnCurrentSpot(currentX, currentY)
 end
@@ -98,10 +98,13 @@ stompOnCurrentSpot(currentX, currentY)
 #printGridGenericRubyStyle
 #printGrid
 
+moveNorth(currentX, currentY)
 #instruction = readInstruction(instructionFile)
 #bearing = determineNewBearing(instruction)
 #distance = determineDistance(instruction)
 #walkTurtle(bearing, distance)
+
+
 
 
 ### Experimenting with file reading ###
