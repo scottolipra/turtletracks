@@ -60,16 +60,16 @@ def printGrid
   end
 end
 
-def stompOnCurrentSpot(x, y)
-  $grid[x][y] = $cellStompedUpon
+def stompOnCurrentSpot
+  $grid[$currentX][$currentY] = $cellStompedUpon
 end
 
-def moveNorth(currentX, currentY, num = 1)
+def moveNorth(num = 1)
   num.times do |num|
-    if (currentY <= $gridSize)
-      currentY -= 1
+    if ($currentY <= $gridSize)
+      $currentY -= 1
     end
-  stompOnCurrentSpot(currentX, currentY)
+  stompOnCurrentSpot
   end
 end
 
@@ -82,34 +82,70 @@ def loadTheInput
   STDIN.each_line do |line|
    inFile << line
   end
+
+  if inFile.count < 3
+    failOut("There seems to be a problem with the input; (the file seems too short).")
+  end
+
   return inFile
+end
+
+def resetGridSize(instructionSet)
+  if instructionSet[0].to_i.kind_of? Integer
+    firstInstruction = instructionSet[0].to_i
+  else failOut('The first line in the input should be an integer')
+  end
+
+  if firstInstruction % 2 == 1
+    $gridSize = firstInstruction
+  else failOut("The first instruction doesn't look like an odd number.  This is a problem.")
+  end
+
+  $currentX = $gridSize / 2
+  $currentY = $gridSize / 2
+
+    #DEBUG
+    #puts $currentX
+    #puts $currentY
+end
+
+def prepareInstructionSet(instructionSet)
+  #remove first two lines
+  # TODO: validate the rest of the file
+end
+
+def failOut(reason)
+  puts reason
+  exit 1
 end
 
 
 ### Definitions ###
 # create a 2-D array.
-$gridSize = 61
+$gridSize = 61  #this is a default
 $cellNotStompedUpon = '. '
 $cellStompedUpon = 'X '
 rows, cols = $gridSize,$gridSize
 $grid = Array.new(rows) { Array.new(cols) }
-currentX = $gridSize / 2
-currentY = $gridSize / 2
+$currentX = $gridSize / 2 #sets a default
+$currentY = $gridSize / 2 #sets a default
 bearing = '0'
 
 
 ### Main Method ###
 instructionSet = loadTheInput
+resetGridSize(instructionSet)
+prepareInstructionSet(instructionSet)
 populateGrid
 
-stompOnCurrentSpot(currentX, currentY)
+stompOnCurrentSpot
 
 #printCheaterGrid
 #printGridGeneric
 #printGridGenericRubyStyle
 #printGrid
 
-moveNorth(currentX, currentY, 5)
+moveNorth(5)
 printGrid
 
 #bearing = determineNewBearing(instruction)
@@ -117,7 +153,9 @@ printGrid
 #walkTurtle(bearing, distance)
 
 
-
+  #DEBUG
+  #puts $currentX
+  #puts $currentY
 
 ### Experimenting with file reading ###
 #puts instructionSet
