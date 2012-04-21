@@ -33,7 +33,6 @@ def printGridGenericRubyStyle
   end
 end
 
-
 def populateGrid
   y = 0
   $gridSize.times do |y|
@@ -71,6 +70,10 @@ def moveNorth(num = 1)
     end
   stompOnCurrentSpot
   end
+end
+
+def walkTurtle(cardinalDirection = 0, dist = 1)
+  
 end
 
 def setCurrentSpot(x, y)
@@ -146,16 +149,16 @@ stompOnCurrentSpot
 #printGrid
 
 moveNorth(5)
+walkTurtle(cardinalDirection, distance)
 printGrid
 
-#bearing = determineNewBearing(instruction)
-#distance = determineDistance(instruction)
-#walkTurtle(bearing, distance)
 
 
   #DEBUG
   #puts $currentX
   #puts $currentY
+
+
 
 ### Experimenting with file reading ###
 #puts instructionSet
