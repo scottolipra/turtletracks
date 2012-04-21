@@ -73,11 +73,18 @@ def moveEast(num = 1)
 end
 
 def walkTurtle(cardinalDirection = 0, dist = 1)
-  
-end
+  if ( (cardinalDirection < 360) && (cardinalDirection % 45 == 0) )
+    xy = $movementMatrix.assoc(cardinalDirection).pop
+    xDir = xy.shift
+    yDir = xy.shift
 
-def setCurrentSpot(x, y)
-  $grid[x][y] = $cellStompedUpon
+    dist.times do
+      $currentX += xDir
+      $currentY += yDir
+      stompOnCurrentSpot
+   end
+  else failOut("The instructions contained an invalid rotation instruction value.")
+  end
 end
 
 def loadTheInput
@@ -132,14 +139,14 @@ def createMovementMatrix
 end
 
 def failOut(reason)
-  puts reason
+  puts reason #TODO: add line # reference in the failout 
   exit 1
 end
 
 
 ### Definitions ###
 # create a 2-D array.
-$gridSize = 61  #this is a default
+$gridSize = 61  #61 is a default
 $cellNotStompedUpon = '. '
 $cellStompedUpon = 'X '
 rows, cols = $gridSize,$gridSize
@@ -163,7 +170,9 @@ stompOnCurrentSpot
 #printGrid
 
 moveEast(5)
-walkTurtle(90, 2)
+walkTurtle(135, 7)
+walkTurtle(0, 20)
+walkTurtle(90, 15)
 printGrid
 
 
