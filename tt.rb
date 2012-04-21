@@ -117,6 +117,20 @@ def prepareInstructionSet(instructionSet)
   # TODO: validate the rest of the file
 end
 
+def createMovementMatrix
+  mtx = Array.new
+  mtx << [0, [0, -1]]
+  mtx << [45, [1, -1]]
+  mtx << [90, [1, 0]]
+  mtx << [135, [1, 1]]
+  mtx << [180, [0, 1]]
+  mtx << [225, [-1, 1]]
+  mtx << [270, [-1, 0]]
+  mtx << [315, [-1, -1]]
+  mtx << [360, [0, -1]]
+  return mtx
+end
+
 def failOut(reason)
   puts reason
   exit 1
@@ -133,7 +147,7 @@ $grid = Array.new(rows) { Array.new(cols) }
 $currentX = $gridSize / 2 #sets a default
 $currentY = $gridSize / 2 #sets a default
 bearing = '0'
-
+$movementMatrix = createMovementMatrix 
 
 ### Main Method ###
 instructionSet = loadTheInput
@@ -149,7 +163,7 @@ stompOnCurrentSpot
 #printGrid
 
 moveNorth(5)
-walkTurtle(cardinalDirection, distance)
+walkTurtle(90, 2)
 printGrid
 
 
