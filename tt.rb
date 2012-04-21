@@ -120,8 +120,28 @@ def resetGridSize(instructionSet)
 end
 
 def prepareInstructionSet(instructionSet)
-  #remove first two lines
+  #remove first two lines of the instructionSet
+  instructionSet.shift(2)
+
   # TODO: validate the rest of the file
+
+  # create the instruction pointer
+  $currentInstructionPointer = 0
+
+  currentInstruction = instructionSet[$currentInstructionPointer].split(' ')
+  
+  if currentInstruction[0] == 'RT'
+    currentInstruction.shift
+    #STOPPING POINT
+  elsif currentInstruction[0] == 'FD'
+
+  elsif currentInstruction[0] == 'BK'
+
+  elsif currentInstruction[0] == 'REPEAT'
+
+  else failOut("There's an unacceptable instruction in the input file.")
+
+  end
 end
 
 def createMovementMatrix
@@ -153,7 +173,7 @@ rows, cols = $gridSize,$gridSize
 $grid = Array.new(rows) { Array.new(cols) }
 $currentX = $gridSize / 2 #sets a default
 $currentY = $gridSize / 2 #sets a default
-bearing = '0'
+$bearing = '0'
 $movementMatrix = createMovementMatrix 
 
 ### Main Method ###
@@ -169,16 +189,24 @@ stompOnCurrentSpot
 #printGridGenericRubyStyle
 #printGrid
 
-moveEast(5)
+#moveEast(5)
 walkTurtle(135, 7)
 walkTurtle(0, 20)
 walkTurtle(90, 15)
 printGrid
 
+#TODO: Account for processing LOGO instructions
+#TODO: Account for walking backwards!!  (set $bearing -180 for this instruction.)
+
+
+
+
 
   #DEBUG
   #puts $currentX
   #puts $currentY
+
+
 
 
 
