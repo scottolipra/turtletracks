@@ -63,10 +63,10 @@ def stompOnCurrentSpot
   $grid[$currentX][$currentY] = $cellStompedUpon
 end
 
-def moveNorth(num = 1)
-  num.times do |num|
-    if ($currentY <= $gridSize)
-      $currentY -= 1
+def moveEast(num = 1)
+  num.times do 
+    if ($currentX <= $gridSize)
+      $currentX += 1
     end
   stompOnCurrentSpot
   end
@@ -162,10 +162,9 @@ stompOnCurrentSpot
 #printGridGenericRubyStyle
 #printGrid
 
-moveNorth(5)
+moveEast(5)
 walkTurtle(90, 2)
 printGrid
-
 
 
   #DEBUG
