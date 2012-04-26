@@ -127,6 +127,14 @@ def prepareInstructionSet(instructionSet)
   $currentInstructionPointer = 0
 end
 
+def processInstructionSet(instructionSet)
+puts 'Process Instruction Set' #DEBUG
+  while instructionSet[$currentInstructionPointer]
+    processOneInstruction(instructionSet)
+    $currentInstructionPointer += 1
+  end
+end
+
 def processOneInstruction(instructionSet)
 
   currentInstruction = instructionSet[$currentInstructionPointer].split(' ')
@@ -186,7 +194,8 @@ end
 
 def failOut(reason)
   if $currentInstructionPointer != -1
-    prefix = 'While processing instruction # ' + $currentInstructionPointer.to_s + ": " 
+    actualInstructionNumber = $currentInstructionPointer + 1 # because it's zero-indexed
+    prefix = 'While processing instruction # ' + actualInstructionNumber.to_s + ": " 
   end
 
   puts prefix + reason #TODO: add line # reference in the failout 
@@ -209,9 +218,11 @@ $currentInstructionPointer = -1 #sets a default
 
 ###
 #
-# Who needs Object Orientation, anyway?  I mean, come on, why use all that powerful, built-in Ruby goodness, when you cam make it real complicated and hard to maintain?
+# Who needs Object Orientation, anyway?  I mean, come on, why use all that powerful, built-in Ruby goodness, when you can make it real complicated and hard to maintain?
 #
-# Global Variables ROCK.
+# KIDDING.
+#
+# Oh, and Global Variables ROCK.
 #
 ###
 
@@ -233,6 +244,8 @@ stompOnCurrentSpot
 walkTurtle(135, 7)
 walkTurtle(0, 20)
 walkTurtle(90, 15)
+processInstructionSet(instructionSet)
+=begin
 processOneInstruction(instructionSet)
 $currentInstructionPointer += 1
 processOneInstruction(instructionSet)
@@ -244,6 +257,7 @@ $currentInstructionPointer += 1
 processOneInstruction(instructionSet)
 $currentInstructionPointer += 1
 processOneInstruction(instructionSet)
+=end
 printGrid
 
 #TODO: Account for processing LOGO instructions
