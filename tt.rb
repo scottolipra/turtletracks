@@ -155,9 +155,9 @@ def processOneInstruction(instructionSet)
     end
 
     $bearing += rotation
-    #if $bearing >=360
-    # bearing -= 360
-    #end
+    if $bearing >=360
+     bearing -= 360
+    end
 
     puts 'bearing after ' + $bearing.to_s #DEBUG
     #exit
