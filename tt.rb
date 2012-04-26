@@ -71,7 +71,7 @@ def moveEast(num = 1)
   end
 end
 
-def walkTurtle(cardinalDirection = 0, dist = 1)
+def walkTurtle(cardinalDirection = 0, dist = 1, walkBackwards=FALSE)
 puts 'Walk Turtle' #DEBUG
 
   if ( (cardinalDirection < 360) && (cardinalDirection % 45 == 0) )
@@ -79,6 +79,11 @@ puts 'Walk Turtle' #DEBUG
     xy = $movementMatrix.assoc(cardinalDirection).last
     xDir = xy.first
     yDir = xy.last
+
+    if walkBackwards == TRUE
+      xDir = -xDir
+      yDir = -yDir
+    end
 
     dist.times do
       $currentX += xDir
@@ -166,8 +171,12 @@ def processOneInstruction(instructionSet)
     walkTurtle($bearing, dist)
 
   elsif currentInstruction[0] == 'BK'
+    puts 'BACKWARD' #DEBUG
     currentInstruction.shift
-    failOut("Sorry, I don't know about BK yet.")
+    dist = currentInstruction.pop.to_i
+    puts 'bearing = ' + $bearing.to_s
+    puts 'distance = ' + dist.to_s
+    walkTurtle($bearing, dist, TRUE)
 
   elsif currentInstruction[0] == 'REPEAT'
     failOut("Sorry, I don't know about REPEAT yet.")
