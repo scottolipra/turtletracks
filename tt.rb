@@ -127,12 +127,25 @@ def prepareInstructionSet(instructionSet)
 
   # create the instruction pointer
   $currentInstructionPointer = 0
+end
+
+def processOneInstruction(instructionSet)
 
   currentInstruction = instructionSet[$currentInstructionPointer].split(' ')
   
   if currentInstruction[0] == 'RT'
     currentInstruction.shift
-    #STOPPING POINT
+    puts 'bearing before ' + $bearing.to_s
+    rotation = currentInstruction[0].to_i
+    if rotation % 45 != 0
+      failOut("there's an invalid rotation in the instruction. Looks like it's not a multiple of 45 degrees.")
+    end
+
+    $bearing += rotation
+
+    puts 'bearing after ' + $bearing.to_s
+    #exit
+
   elsif currentInstruction[0] == 'FD'
 
   elsif currentInstruction[0] == 'BK'
@@ -142,6 +155,7 @@ def prepareInstructionSet(instructionSet)
   else failOut("There's an unacceptable instruction in the input file.")
 
   end
+
 end
 
 def createMovementMatrix
@@ -159,7 +173,11 @@ def createMovementMatrix
 end
 
 def failOut(reason)
-  puts reason #TODO: add line # reference in the failout 
+  if $currentInstructionPointer != -1
+    prefix = 'While processing instruction # ' + $currentInstructionPointer.to_s + ": " 
+  end
+
+  puts prefix + reason #TODO: add line # reference in the failout 
   exit 1
 end
 
@@ -173,8 +191,17 @@ rows, cols = $gridSize,$gridSize
 $grid = Array.new(rows) { Array.new(cols) }
 $currentX = $gridSize / 2 #sets a default
 $currentY = $gridSize / 2 #sets a default
-$bearing = '0'
+$bearing = 0
 $movementMatrix = createMovementMatrix 
+$currentInstructionPointer = -1 #sets a default
+
+###
+#
+# Who needs Object Orientation, anyway?  I mean, come on, why use all that powerful, built-in Ruby goodness, when you cam make it real complicated and hard to maintain?
+#
+# Global Variables ROCK.
+#
+###
 
 ### Main Method ###
 instructionSet = loadTheInput
@@ -193,6 +220,9 @@ stompOnCurrentSpot
 walkTurtle(135, 7)
 walkTurtle(0, 20)
 walkTurtle(90, 15)
+processOneInstruction(instructionSet)
+$currentInstructionPointer += 1
+processOneInstruction(instructionSet)
 printGrid
 
 #TODO: Account for processing LOGO instructions
