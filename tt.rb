@@ -46,7 +46,6 @@ def populateGrid
 end
 
 def printGrid
-  puts 'printGrid'
   y = 0
   $gridSize.times do |y|
     x = 0
@@ -82,7 +81,7 @@ def walkTurtle(cardinalDirection = 0, dist = 1)
       $currentX += xDir
       $currentY += yDir
       stompOnCurrentSpot
-   end
+  end
   else failOut("The instructions contained an invalid rotation instruction value.")
   end
 end
@@ -138,7 +137,7 @@ def processOneInstruction(instructionSet)
     puts 'bearing before ' + $bearing.to_s
     rotation = currentInstruction[0].to_i
     if rotation % 45 != 0
-      failOut("there's an invalid rotation in the instruction. Looks like it's not a multiple of 45 degrees.")
+      failOut("there's an invalid rotation value in the instruction. Looks like it's not a multiple of 45 degrees.")
     end
 
     $bearing += rotation
@@ -147,10 +146,17 @@ def processOneInstruction(instructionSet)
     #exit
 
   elsif currentInstruction[0] == 'FD'
+    currentInstruction.shift
+    dist = currentInstruction.pop.to_i
+    puts 'distance = ' + dist.to_s
+    walkTurtle($bearing, dist)
 
   elsif currentInstruction[0] == 'BK'
+    currentInstruction.shift
+    failOut("Sorry, I don't know about BK yet.")
 
   elsif currentInstruction[0] == 'REPEAT'
+    failOut("Sorry, I don't know about REPEAT yet.")
 
   else failOut("There's an unacceptable instruction in the input file.")
 
@@ -220,6 +226,8 @@ stompOnCurrentSpot
 walkTurtle(135, 7)
 walkTurtle(0, 20)
 walkTurtle(90, 15)
+processOneInstruction(instructionSet)
+$currentInstructionPointer += 1
 processOneInstruction(instructionSet)
 $currentInstructionPointer += 1
 processOneInstruction(instructionSet)
