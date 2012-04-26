@@ -72,10 +72,13 @@ def moveEast(num = 1)
 end
 
 def walkTurtle(cardinalDirection = 0, dist = 1)
+puts 'Walk Turtle' #DEBUG
+
   if ( (cardinalDirection < 360) && (cardinalDirection % 45 == 0) )
-    xy = $movementMatrix.assoc(cardinalDirection).pop
-    xDir = xy.shift
-    yDir = xy.shift
+
+    xy = $movementMatrix.assoc(cardinalDirection).last
+    xDir = xy.first
+    yDir = xy.last
 
     dist.times do
       $currentX += xDir
@@ -112,10 +115,6 @@ def resetGridSize(instructionSet)
 
   $currentX = $gridSize / 2
   $currentY = $gridSize / 2
-
-    #DEBUG
-    #puts $currentX
-    #puts $currentY
 end
 
 def prepareInstructionSet(instructionSet)
@@ -133,21 +132,28 @@ def processOneInstruction(instructionSet)
   currentInstruction = instructionSet[$currentInstructionPointer].split(' ')
   
   if currentInstruction[0] == 'RT'
+    puts 'ROTATE' #DEBUG
     currentInstruction.shift
-    puts 'bearing before ' + $bearing.to_s
+
+    puts 'bearing before ' + $bearing.to_s #DEBUG
     rotation = currentInstruction[0].to_i
     if rotation % 45 != 0
       failOut("there's an invalid rotation value in the instruction. Looks like it's not a multiple of 45 degrees.")
     end
 
     $bearing += rotation
+    #if $bearing >=360
+    # bearing -= 360
+    #end
 
-    puts 'bearing after ' + $bearing.to_s
+    puts 'bearing after ' + $bearing.to_s #DEBUG
     #exit
 
   elsif currentInstruction[0] == 'FD'
+    puts 'FORWARD' #DEBUG
     currentInstruction.shift
     dist = currentInstruction.pop.to_i
+    puts 'bearing = ' + $bearing.to_s
     puts 'distance = ' + dist.to_s
     walkTurtle($bearing, dist)
 
@@ -223,9 +229,16 @@ stompOnCurrentSpot
 #printGrid
 
 #moveEast(5)
+
 walkTurtle(135, 7)
 walkTurtle(0, 20)
 walkTurtle(90, 15)
+processOneInstruction(instructionSet)
+$currentInstructionPointer += 1
+processOneInstruction(instructionSet)
+$currentInstructionPointer += 1
+processOneInstruction(instructionSet)
+$currentInstructionPointer += 1
 processOneInstruction(instructionSet)
 $currentInstructionPointer += 1
 processOneInstruction(instructionSet)
@@ -263,3 +276,8 @@ puts gridArray[0][0]
 puts gridArray[0][1]
 puts gridArray[0][2]
 =end
+
+##
+## Eighth Light, I know you're watching!  I will be the Last Starfighter!
+## 
+##
