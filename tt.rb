@@ -250,11 +250,14 @@ stompOnCurrentSpot
 
 #moveEast(5)
 
-walkTurtle(135, 7)
-walkTurtle(0, 20)
-walkTurtle(90, 15)
+#Walk the Turtle manually from the code.
+walkTurtle(135, 7) #DEBUG
+walkTurtle(0, 20) #DEBUG
+walkTurtle(90, 15) #DEBUG
+
 processInstructionSet(instructionSet)
 =begin
+#Do some manual InstructionFile Processing
 processOneInstruction(instructionSet)
 $currentInstructionPointer += 1
 processOneInstruction(instructionSet)
@@ -269,17 +272,9 @@ processOneInstruction(instructionSet)
 =end
 printGrid
 
-#TODO: Account for processing LOGO instructions
-#TODO: Account for walking backwards!!  (set $bearing -180 for this instruction.)
-
-
-
-
-
-  #DEBUG
+#DEBUG
   #puts $currentX
   #puts $currentY
-
 
 
 
