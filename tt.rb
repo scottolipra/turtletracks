@@ -72,7 +72,7 @@ def moveEast(num = 1)
 end
 
 def walkTurtle(cardinalDirection = 0, dist = 1, walkBackwards=FALSE)
-puts 'Walk Turtle' #DEBUG
+puts 'Method: Walk Turtle' #DEBUG
 
   if ( (cardinalDirection < 360) && (cardinalDirection % 45 == 0) )
 
@@ -150,19 +150,21 @@ def prepareRepeatedInstructionSet(repeatThisInstructionSet)
 end
 
 def processInstructionSet(instructionSet)
-puts 'Process Instruction Set' #DEBUG
-puts 'while loop condition'
-print instructionSet[1]
+puts 'Method: Process Instruction Set' #DEBUG
+puts "Here's the Instruction Set: " 
+print instructionSet #DEBUG
 puts ''
+
+#### THE PROBLEM IS HERE ####
   while instructionSet[$currentInstructionPointer]
-puts 'current InstructionPointer = ' + $currentInstructionPointer.to_s
+puts 'Calling processOneInstruction' #DEBUG
     processOneInstruction(instructionSet)
     $currentInstructionPointer += 1
-puts 'new InstructionPointer = ' + $currentInstructionPointer.to_s
   end
 end
 
 def processOneInstruction(instructionSet)
+puts 'Method: Process One Instruction'  #DEBUG
 
   currentInstruction = instructionSet[$currentInstructionPointer].split(' ')
   
@@ -182,7 +184,6 @@ def processOneInstruction(instructionSet)
     end
 
     puts 'bearing after ' + $bearing.to_s #DEBUG
-    #exit
 
   elsif currentInstruction[0] == 'LT'
     failOut("Sorry, I don't know about LT yet.")
@@ -212,6 +213,11 @@ puts "here's the forward instruction"
 print currentInstruction
 puts ''
 
+puts 'Forward distance: ' 
+print currentInstruction[0].to_i
+puts ''
+
+
     dist = currentInstruction.pop.to_i
     puts 'bearing = ' + $bearing.to_s
     puts 'distance = ' + dist.to_s
@@ -226,6 +232,7 @@ puts ''
     walkTurtle($bearing, dist, TRUE)
 
   elsif currentInstruction[0] == 'REPEAT'
+    puts 'REPEAT'  #DEBUG
     currentInstruction.shift
     repeatCount = currentInstruction[0].to_i
     currentInstruction.shift
@@ -243,6 +250,8 @@ puts 'repeatCount => ' + repeatCount.to_s
       processInstructionSet(repeatThisInstructionSet)
       repeatCount -= 1
     end
+
+puts 'End of the REPEATed loop'
 
     $currentInstructionPointer = parkedInstructionPointer
 puts 'currentInstructionPointer' + $currentInstructionPointer.to_s
