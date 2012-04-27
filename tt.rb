@@ -156,6 +156,8 @@ print instructionSet #DEBUG
 puts ''
 
 #### THE PROBLEM IS HERE ####
+puts "Here's the Instruction Set VALUE AT POINTER: " + instructionSet[$currentInstructionPointer]
+
   while instructionSet[$currentInstructionPointer]
 puts 'Calling processOneInstruction' #DEBUG
     processOneInstruction(instructionSet)

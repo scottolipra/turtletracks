@@ -2,4 +2,4 @@
 
 RT 45
 FD 5
-REPEAT 2 [ RT 45 FD 15 ]
+REPEAT 2 [ RT 90 FD 15 ]
