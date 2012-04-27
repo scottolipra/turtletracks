@@ -72,8 +72,8 @@ def moveEast(num = 1)
 end
 
 def walkTurtle(cardinalDirection = 0, dist = 1, walkBackwards=FALSE)
-puts 'Walk Turtle' #DEBUG
-
+puts 'Method: Walk Turtle' #DEBUG
+puts "In walkTurtle(), the currentInstructionPointer is " + $currentInstructionPointer.to_s
   if ( (cardinalDirection < 360) && (cardinalDirection % 45 == 0) )
 
     xy = $movementMatrix.assoc(cardinalDirection).last
@@ -132,8 +132,34 @@ def prepareInstructionSet(instructionSet)
   $currentInstructionPointer = 0
 end
 
+def prepareRepeatedInstructionSet(repeatThisInstructionSet)
+  workingArray = Array.new(repeatThisInstructionSet)
+  
+  if repeatThisInstructionSet.length % 2 == 1
+    failOut("An instruction within a REPEAT block had an odd number of instructions.")
+  end
+  
+  properArray = Array.new
+  while workingArray.length > 0
+    tmpArray = Array.new
+    tmpArray << workingArray.shift
+    tmpArray << workingArray.shift
+    properArray << tmpArray.join(' ')
+  end
+  return properArray
+end
+
 def processInstructionSet(instructionSet)
-puts 'Process Instruction Set' #DEBUG
+puts 'Method: Process Instruction Set' #DEBUG
+puts "Here's the Instruction Set: " 
+print instructionSet #DEBUG
+puts ''
+
+#### THE PROBLEM IS HERE. THE WHILE LOOP IS SKIPPED IN SUBSEQUENT REPEATS ####
+#puts "$currentInstructionPointer = " + $currentInstructionPointer.to_s
+#### THE CURRENT INSTRUCTION POINTER IS 2, SHOULD BE 1
+puts "Here's the Instruction Set VALUE AT POINTER: " + instructionSet[$currentInstructionPointer]
+
   while instructionSet[$currentInstructionPointer]
     processOneInstruction(instructionSet)
     $currentInstructionPointer += 1
@@ -141,6 +167,7 @@ puts 'Process Instruction Set' #DEBUG
 end
 
 def processOneInstruction(instructionSet)
+puts 'Method: Process One Instruction'  #DEBUG
 
   currentInstruction = instructionSet[$currentInstructionPointer].split(' ')
   
@@ -160,15 +187,45 @@ def processOneInstruction(instructionSet)
     end
 
     puts 'bearing after ' + $bearing.to_s #DEBUG
+
+  elsif currentInstruction[0] == 'LT'
+    failOut("Sorry, I don't know about LT yet.")
+=begin
+    puts 'ROTATE' #DEBUG
+    currentInstruction.shift
+
+    puts 'bearing before ' + $bearing.to_s #DEBUG
+    rotation = currentInstruction[0].to_i
+    if rotation % 45 != 0
+      failOut("there's an invalid rotation value in the instruction. Looks like it's not a multiple of 45 degrees.")
+    end
+
+    $bearing += rotation
+    if $bearing >=360
+     bearing -= 360
+    end
+
+    puts 'bearing after ' + $bearing.to_s #DEBUG
     #exit
+=end
 
   elsif currentInstruction[0] == 'FD'
     puts 'FORWARD' #DEBUG
     currentInstruction.shift
+puts "here's the forward instruction"
+print currentInstruction
+puts ''
+
+puts 'Forward distance: ' 
+print currentInstruction[0].to_i
+puts ''
+
+
     dist = currentInstruction.pop.to_i
     puts 'bearing = ' + $bearing.to_s
     puts 'distance = ' + dist.to_s
     walkTurtle($bearing, dist)
+puts "End of FORWARD, after return from walkTurtle. the currentInstructionPointer is " + $currentInstructionPointer.to_s
 
   elsif currentInstruction[0] == 'BK'
     puts 'BACKWARD' #DEBUG
@@ -179,11 +236,38 @@ def processOneInstruction(instructionSet)
     walkTurtle($bearing, dist, TRUE)
 
   elsif currentInstruction[0] == 'REPEAT'
-    failOut("Sorry, I don't know about REPEAT yet.")
+    puts 'REPEAT'  #DEBUG
+    currentInstruction.shift
+    repeatCount = currentInstruction[0].to_i
+    currentInstruction.shift
+    repeatThisInstructionSet = Array.new
+    repeatThisInstructionSet = repeatThisInstructionSet + currentInstruction
+    repeatThisInstructionSet.shift
+    repeatThisInstructionSet.pop
 
-  else failOut("There's an unacceptable instruction in the input file.")
+    # prepare a couple things for running the neseted instructionSet recursively
+    parkedInstructionPointer = $currentInstructionPointer
+    repeatThisInstructionSet = prepareRepeatedInstructionSet(repeatThisInstructionSet)
+
+    # 
+    while repeatCount >= 1
+puts 'repeatCount => ' + repeatCount.to_s
+puts "In the whileLoop, about to run processInstructionSet on the nested. the currentInstructionPointer is " + $currentInstructionPointer.to_s
+      $currentInstructionPointer = 0
+      processInstructionSet(repeatThisInstructionSet)
+      repeatCount -= 1
+    end
+
+puts 'End of the REPEATed loop'
+
+    $currentInstructionPointer = parkedInstructionPointer
+puts 'currentInstructionPointer' + $currentInstructionPointer.to_s
+
+  else failOut("There's an unacceptable instruction in the input file." + currentInstruction[0])
 
   end
+
+puts "End of processOneInstruction.  the currentInstructionPointer is " + $currentInstructionPointer.to_s
 
 end
 
@@ -251,9 +335,9 @@ stompOnCurrentSpot
 #moveEast(5)
 
 #Walk the Turtle manually from the code.
-walkTurtle(135, 7) #DEBUG
-walkTurtle(0, 20) #DEBUG
-walkTurtle(90, 15) #DEBUG
+#walkTurtle(135, 7) #DEBUG
+#walkTurtle(0, 20) #DEBUG
+#walkTurtle(90, 15) #DEBUG
 
 processInstructionSet(instructionSet)
 =begin
