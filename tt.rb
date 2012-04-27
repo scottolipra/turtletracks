@@ -73,7 +73,7 @@ end
 
 def walkTurtle(cardinalDirection = 0, dist = 1, walkBackwards=FALSE)
 puts 'Method: Walk Turtle' #DEBUG
-
+puts "In walkTurtle(), the currentInstructionPointer is " + $currentInstructionPointer.to_s
   if ( (cardinalDirection < 360) && (cardinalDirection % 45 == 0) )
 
     xy = $movementMatrix.assoc(cardinalDirection).last
@@ -155,11 +155,12 @@ puts "Here's the Instruction Set: "
 print instructionSet #DEBUG
 puts ''
 
-#### THE PROBLEM IS HERE ####
+#### THE PROBLEM IS HERE. THE WHILE LOOP IS SKIPPED IN SUBSEQUENT REPEATS ####
+#puts "$currentInstructionPointer = " + $currentInstructionPointer.to_s
+#### THE CURRENT INSTRUCTION POINTER IS 2, SHOULD BE 1
 puts "Here's the Instruction Set VALUE AT POINTER: " + instructionSet[$currentInstructionPointer]
 
   while instructionSet[$currentInstructionPointer]
-puts 'Calling processOneInstruction' #DEBUG
     processOneInstruction(instructionSet)
     $currentInstructionPointer += 1
   end
@@ -224,6 +225,7 @@ puts ''
     puts 'bearing = ' + $bearing.to_s
     puts 'distance = ' + dist.to_s
     walkTurtle($bearing, dist)
+puts "End of FORWARD, after return from walkTurtle. the currentInstructionPointer is " + $currentInstructionPointer.to_s
 
   elsif currentInstruction[0] == 'BK'
     puts 'BACKWARD' #DEBUG
@@ -243,12 +245,15 @@ puts ''
     repeatThisInstructionSet.shift
     repeatThisInstructionSet.pop
 
+    # prepare a couple things for running the neseted instructionSet recursively
     parkedInstructionPointer = $currentInstructionPointer
-    $currentInstructionPointer = 0
     repeatThisInstructionSet = prepareRepeatedInstructionSet(repeatThisInstructionSet)
 
+    # 
     while repeatCount >= 1
 puts 'repeatCount => ' + repeatCount.to_s
+puts "In the whileLoop, about to run processInstructionSet on the nested. the currentInstructionPointer is " + $currentInstructionPointer.to_s
+      $currentInstructionPointer = 0
       processInstructionSet(repeatThisInstructionSet)
       repeatCount -= 1
     end
@@ -261,6 +266,8 @@ puts 'currentInstructionPointer' + $currentInstructionPointer.to_s
   else failOut("There's an unacceptable instruction in the input file." + currentInstruction[0])
 
   end
+
+puts "End of processOneInstruction.  the currentInstructionPointer is " + $currentInstructionPointer.to_s
 
 end
 
