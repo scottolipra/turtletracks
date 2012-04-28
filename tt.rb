@@ -72,8 +72,7 @@ def moveEast(num = 1)
 end
 
 def walkTurtle(cardinalDirection = 0, dist = 1, walkBackwards=FALSE)
-puts 'Method: Walk Turtle' #DEBUG
-puts "In walkTurtle(), the currentInstructionPointer is " + $currentInstructionPointer.to_s
+#puts 'Method: Walk Turtle' #DEBUG
   if ( (cardinalDirection < 360) && (cardinalDirection % 45 == 0) )
 
     xy = $movementMatrix.assoc(cardinalDirection).last
@@ -150,29 +149,24 @@ def prepareRepeatedInstructionSet(repeatThisInstructionSet)
 end
 
 def processInstructionSet(instructionSet)
-puts 'Method: Process Instruction Set' #DEBUG
-puts "Here's the Instruction Set: " 
-print instructionSet #DEBUG
-puts ''
-
+#puts 'Method: Process Instruction Set' #DEBUG
 
   while instructionSet[$currentInstructionPointer]
-puts "B4 proc One Instr: Here's the Instruction Set VALUE AT POINTER: " + instructionSet[$currentInstructionPointer]
     processOneInstruction(instructionSet)
     $currentInstructionPointer += 1
   end
 end
 
 def processOneInstruction(instructionSet)
-puts 'Method: Process One Instruction'  #DEBUG
+#puts 'Method: Process One Instruction'  #DEBUG
 
   currentInstruction = instructionSet[$currentInstructionPointer].split(' ')
   
   if currentInstruction[0] == 'RT'
-    puts 'ROTATE' #DEBUG
+    #puts 'ROTATE' #DEBUG
     currentInstruction.shift
 
-    puts 'bearing before ' + $bearing.to_s #DEBUG
+    #puts 'bearing before ' + $bearing.to_s #DEBUG
     rotation = currentInstruction[0].to_i
     if rotation % 45 != 0
       failOut("there's an invalid rotation value in the instruction. Looks like it's not a multiple of 45 degrees.")
@@ -183,14 +177,13 @@ puts 'Method: Process One Instruction'  #DEBUG
      $bearing -= 360
     end
 
-    puts 'bearing after ' + $bearing.to_s #DEBUG
+    #puts 'bearing after ' + $bearing.to_s #DEBUG
 
   elsif currentInstruction[0] == 'LT'
-    #failOut("Sorry, I don't know about LT yet.")
-    puts 'ROTATE' #DEBUG
+    #puts 'ROTATE' #DEBUG
     currentInstruction.shift
 
-    puts 'bearing before ' + $bearing.to_s #DEBUG
+    #puts 'bearing before ' + $bearing.to_s #DEBUG
     rotation = currentInstruction[0].to_i
     if rotation % 45 != 0
       failOut("there's an invalid rotation value in the instruction. Looks like it's not a multiple of 45 degrees.")
@@ -201,28 +194,25 @@ puts 'Method: Process One Instruction'  #DEBUG
      $bearing += 360
     end
 
-    puts 'bearing after ' + $bearing.to_s #DEBUG
+    #puts 'bearing after ' + $bearing.to_s #DEBUG
 
   elsif currentInstruction[0] == 'FD'
-    puts 'FORWARD' #DEBUG
+    #puts 'FORWARD' #DEBUG
     currentInstruction.shift
-puts "here's the forward instruction"
-print currentInstruction
-puts ''
-
+=begin
 puts 'Forward distance: ' 
 print currentInstruction[0].to_i
 puts ''
-
+=end
 
     dist = currentInstruction.pop.to_i
-    puts 'bearing = ' + $bearing.to_s
-    puts 'distance = ' + dist.to_s
+    #puts 'bearing = ' + $bearing.to_s #DEBUG
+    #puts 'distance = ' + dist.to_s #DEBUG
     walkTurtle($bearing, dist)
-puts "End of FORWARD, after return from walkTurtle. the currentInstructionPointer is " + $currentInstructionPointer.to_s
+#puts "End of FORWARD, after return from walkTurtle. the currentInstructionPointer is " + $currentInstructionPointer.to_s #DEBUG
 
   elsif currentInstruction[0] == 'BK'
-    puts 'BACKWARD' #DEBUG
+    #puts 'BACKWARD' #DEBUG
     currentInstruction.shift
     dist = currentInstruction.pop.to_i
     puts 'bearing = ' + $bearing.to_s
@@ -230,7 +220,7 @@ puts "End of FORWARD, after return from walkTurtle. the currentInstructionPointe
     walkTurtle($bearing, dist, TRUE)
 
   elsif currentInstruction[0] == 'REPEAT'
-    puts 'REPEAT'  #DEBUG
+    #puts 'REPEAT'  #DEBUG
     currentInstruction.shift
     repeatCount = currentInstruction[0].to_i
     currentInstruction.shift
@@ -245,23 +235,23 @@ puts "End of FORWARD, after return from walkTurtle. the currentInstructionPointe
 
     # 
     while repeatCount >= 1
-puts 'repeatCount => ' + repeatCount.to_s
-puts "In the whileLoop, about to run processInstructionSet on the nested. the currentInstructionPointer is " + $currentInstructionPointer.to_s
+#puts 'repeatCount => ' + repeatCount.to_s
+#puts "In the whileLoop, about to run processInstructionSet on the nested. the currentInstructionPointer is " + $currentInstructionPointer.to_s
       $currentInstructionPointer = 0
       processInstructionSet(repeatThisInstructionSet)
       repeatCount -= 1
     end
 
-puts 'End of the REPEATed loop'
+#puts 'End of the REPEATed loop'
 
     $currentInstructionPointer = parkedInstructionPointer
-puts 'currentInstructionPointer' + $currentInstructionPointer.to_s
+#puts 'currentInstructionPointer' + $currentInstructionPointer.to_s
 
   else failOut("There's an unacceptable instruction in the input file." + currentInstruction[0])
 
   end
 
-puts "End of processOneInstruction.  the currentInstructionPointer is " + $currentInstructionPointer.to_s
+#puts "End of processOneInstruction.  the currentInstructionPointer is " + $currentInstructionPointer.to_s
 
 end
 
@@ -292,7 +282,7 @@ end
 
 ### Definitions ###
 # create a 2-D array.
-$gridSize = 61  #61 is a default
+$gridSize = 1001  #61 is a default
 $cellNotStompedUpon = '. '
 $cellStompedUpon = 'X '
 rows, cols = $gridSize,$gridSize
