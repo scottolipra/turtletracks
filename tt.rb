@@ -186,8 +186,7 @@ puts 'Method: Process One Instruction'  #DEBUG
     puts 'bearing after ' + $bearing.to_s #DEBUG
 
   elsif currentInstruction[0] == 'LT'
-    failOut("Sorry, I don't know about LT yet.")
-=begin
+    #failOut("Sorry, I don't know about LT yet.")
     puts 'ROTATE' #DEBUG
     currentInstruction.shift
 
@@ -197,14 +196,12 @@ puts 'Method: Process One Instruction'  #DEBUG
       failOut("there's an invalid rotation value in the instruction. Looks like it's not a multiple of 45 degrees.")
     end
 
-    $bearing += rotation
-    if $bearing >=360
-     $bearing -= 360
+    $bearing -= rotation
+    if $bearing < 360
+     $bearing += 360
     end
 
     puts 'bearing after ' + $bearing.to_s #DEBUG
-    #exit
-=end
 
   elsif currentInstruction[0] == 'FD'
     puts 'FORWARD' #DEBUG
