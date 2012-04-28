@@ -155,12 +155,9 @@ puts "Here's the Instruction Set: "
 print instructionSet #DEBUG
 puts ''
 
-#### THE PROBLEM IS HERE. THE WHILE LOOP IS SKIPPED IN SUBSEQUENT REPEATS ####
-#puts "$currentInstructionPointer = " + $currentInstructionPointer.to_s
-#### THE CURRENT INSTRUCTION POINTER IS 2, SHOULD BE 1
-puts "Here's the Instruction Set VALUE AT POINTER: " + instructionSet[$currentInstructionPointer]
 
   while instructionSet[$currentInstructionPointer]
+puts "B4 proc One Instr: Here's the Instruction Set VALUE AT POINTER: " + instructionSet[$currentInstructionPointer]
     processOneInstruction(instructionSet)
     $currentInstructionPointer += 1
   end
@@ -183,7 +180,7 @@ puts 'Method: Process One Instruction'  #DEBUG
 
     $bearing += rotation
     if $bearing >=360
-     bearing -= 360
+     $bearing -= 360
     end
 
     puts 'bearing after ' + $bearing.to_s #DEBUG
@@ -202,7 +199,7 @@ puts 'Method: Process One Instruction'  #DEBUG
 
     $bearing += rotation
     if $bearing >=360
-     bearing -= 360
+     $bearing -= 360
     end
 
     puts 'bearing after ' + $bearing.to_s #DEBUG
