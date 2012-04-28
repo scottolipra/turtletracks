@@ -49,11 +49,16 @@ def printGrid
   y = 0
   $gridSize.times do |y|
     x = 0
+    line = Array.new
     $gridSize.times do |x|
-      print $grid[x][y]
+      #print $grid[x][y]
+      line << $grid[x][y]
       x += 1
     end
-    puts ''
+    #print "\b"
+    #puts ''
+    #line.pop
+    puts line.join('')
     y += 1
   end
 end
